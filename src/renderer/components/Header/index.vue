@@ -4,7 +4,7 @@
       <img src="~@/assets/logo.png" alt="logo" />
     </div>
     <div class="header__buttons">
-      <div @click="minimizeWindow">
+      <div class="header__button--container" @click="minimizeWindow">
         <icon
           name="minus"
           width="1rem"
@@ -13,20 +13,20 @@
         />
       </div>
 
-      <div @click="maximizeWindow">
+      <div class="header__button--container" @click="maximizeWindow">
         <icon
           name="square-full"
-          width="0.8rem"
-          height="0.8rem"
+          width="1rem"
+          height="1rem"
           class="header__button header__button--maximize"
         />
       </div>
 
-      <div @click="closeWindow">
+      <div class="header__button--container" @click="closeWindow">
         <icon
           name="times"
-          width="1.2rem"
-          height="1.2rem"
+          width="1rem"
+          height="1rem"
           class="header__button header__button--close"
         />
       </div>
@@ -52,11 +52,9 @@ export default {
     },
 
     maximizeWindow() {
-      if (electronWindow.isMaximized()) {
-        electronWindow.unmaximize();
-      } else {
-        electronWindow.maximize();
-      }
+      const window = remote.BrowserWindow.getFocusedWindow();
+
+      window.setFullScreen(!window.isFullScreen());
     },
     handleScroll() {
       const content = document.querySelector(".content");
@@ -98,6 +96,7 @@ export default {
 
   &__logo {
     height: 100%;
+    margin-top: 1rem;
 
     & > img {
       height: 100%;
@@ -117,9 +116,16 @@ export default {
     padding: 0 0.2rem;
     -webkit-app-region: no-drag;
     height: max-content;
+    color: $text-secondary-color;
 
     &:hover {
-      background-color: rgba($color: #ffffff, $alpha: 0.2);
+      color: $text-color;
+    }
+
+    &--container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

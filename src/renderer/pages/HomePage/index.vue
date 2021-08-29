@@ -27,7 +27,9 @@ export default {
 
 <style lang="scss" scoped>
 .main {
-  margin-top: 1rem;
+  margin-top: 3rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
 
   & > * + * {
     margin-top: 1.5rem;

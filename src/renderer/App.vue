@@ -61,7 +61,7 @@ body {
 
 .content {
   grid-column: span 7 / span 7;
-  padding: 2rem 2rem;
+  padding: 0;
   max-height: calc(100vh - 8.5rem);
   overflow-y: scroll;
 }
