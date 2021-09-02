@@ -18,8 +18,6 @@ const winURL =
     ? "http://localhost:9080"
     : `file://${__dirname}/index.html`;
 
-app.commandLine.appendSwitch("disable-features", "OutOfBlinkCors");
-
 function createWindow() {
   /**
    * Initial window options
