@@ -15,7 +15,15 @@
           <icon name="step-backward" width="1.2rem" height="1.2rem" />
         </button-icon>
 
+        <div
+          v-if="audioLoading"
+          class="controls__button controls__button--loading"
+        >
+          <spinner />
+        </div>
+
         <button-icon
+          v-else
           @click="onPlayClick"
           class="controls__button controls__button--play"
         >
@@ -194,6 +202,7 @@ import { parseTime } from "../utils";
 import Drawer from "./Drawer.vue";
 import SongCard from "./SongCard.vue";
 import TextIcon from "./TextIcon.vue";
+import Spinner from "./Spinner.vue";
 
 export default {
   name: "player",
@@ -205,6 +214,7 @@ export default {
     Drawer,
     SongCard,
     TextIcon,
+    Spinner,
   },
 
   data() {
@@ -219,6 +229,7 @@ export default {
       currentTime: 0,
       duration: 0,
       audioLoaded: false,
+      audioLoading: false,
       isRepeat: false,
       isRandom: false,
       isFirstSong: !this.currentTrack,
@@ -359,6 +370,7 @@ export default {
         this.showText.currentTime = parseTime(currentTime);
         this.showText.duration = parseTime(duration);
         this.audioLoaded = true;
+        this.audioLoading = false;
 
         this.play();
       });
@@ -385,12 +397,13 @@ export default {
       this.isFirstOrLastSong();
       this.scrollToPlayingTrack();
 
+      this.audioLoading = true;
+      this.audioLoaded = false;
+      this.audioElement.currentTime = 0;
+
       StreamingQuery(track.encodeId).then((streaming) => {
         this.audioElement.src = streaming["128"];
       });
-
-      this.audioLoaded = false;
-      this.audioElement.currentTime = 0;
     },
 
     isPlaying() {
@@ -498,6 +511,10 @@ export default {
         button {
           height: 1.4rem;
         }
+      }
+
+      &--loading {
+        margin: 0 1rem;
       }
 
       &--play {
