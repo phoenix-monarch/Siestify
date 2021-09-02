@@ -143,11 +143,23 @@
               v-for="(song, index) in tracks"
               @click="setCurrentTrackIndex(index)"
               :song="song"
+              class="song-card"
               :class="{
                 active: currentTrack && currentTrack.encodeId === song.encodeId,
               }"
               :key="index"
-            />
+            >
+              <div class="song-buttons" slot="after">
+                <button-icon
+                  class="controls__button"
+                  @click.stop="removeTrack(song)"
+                >
+                  <text-icon>
+                    <icon name="trash" width="1rem" height="1rem" />
+                  </text-icon>
+                </button-icon>
+              </div>
+            </song-card>
           </div>
         </drawer>
       </div>
@@ -219,6 +231,7 @@ export default {
       "addTrack",
       "setTracks",
       "clearTracks",
+      "removeTrack",
       "setCurrentTrack",
       "setCurrentTrackIndex",
       "play",
@@ -406,6 +419,10 @@ export default {
     margin-top: 0.5rem;
   }
 
+  /deep/ .song-card {
+    justify-content: space-between;
+  }
+
   &__controls {
     display: flex;
     justify-content: space-between;
@@ -432,6 +449,10 @@ export default {
       .song__title {
         font-size: 1rem;
         color: $text-color;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
 
       .song__author {
@@ -551,6 +572,7 @@ export default {
     padding: 2rem 1rem;
     padding-top: 4rem;
     overflow-y: scroll;
+    width: 25rem;
 
     /deep/ .song__info {
       padding: 0.5rem 1rem;

@@ -16,6 +16,19 @@ const mutations = {
     state.tracks = payload.tracks;
   },
 
+  REMOVE_TRACK(state, payload) {
+    state.tracks = state.tracks.filter(
+      (track) => track.encodeId !== payload.track.encodeId
+    );
+
+    // If the playing track is going to removed, then play another track
+    if (state.currentTrack?.encodeId === payload.track.encodeId) {
+      const [firstTrack] = state.tracks;
+
+      state.currentTrack = firstTrack;
+    }
+  },
+
   SET_CURRENT_TRACK(state, payload) {
     state.currentTrack = payload.track;
   },
@@ -65,6 +78,10 @@ const actions = {
 
   clearTracks({ commit }) {
     commit("CLEAR_TRACKS");
+  },
+
+  removeTrack({ commit }, track) {
+    commit("REMOVE_TRACK", { track });
   },
 };
 

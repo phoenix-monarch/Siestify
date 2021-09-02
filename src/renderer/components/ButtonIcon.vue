@@ -12,8 +12,8 @@
 export default {
   props: ["disabled", "active", "circle"],
   methods: {
-    onClick() {
-      this.$emit("click");
+    onClick(e) {
+      this.$emit("click", e);
     },
   },
 };

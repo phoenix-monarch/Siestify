@@ -2,11 +2,13 @@
   <div class="song__info" @click="handleClick">
     <slot name="before" />
 
-    <img class="song__thumbnail" v-lazy="song.thumbnail" />
+    <div class="song__container">
+      <img class="song__thumbnail" v-lazy="song.thumbnail" />
 
-    <div class="song__text">
-      <span class="song__title">{{ song.title }}</span>
-      <span class="song__artists">{{ song.artistsNames }}</span>
+      <div class="song__text">
+        <span class="song__title">{{ song.title }}</span>
+        <span class="song__artists">{{ song.artistsNames }}</span>
+      </div>
     </div>
 
     <slot name="after" />
@@ -36,6 +38,11 @@ export default {
   }
 
   &__info {
+    display: flex;
+    align-items: center;
+  }
+
+  &__container {
     display: flex;
     align-items: center;
   }
