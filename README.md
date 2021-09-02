@@ -1,8 +1,25 @@
-# siestify
+# Siestify
 
-> A simple music player
+Siestify is a simple music player built with Electron and Vue.
 
-#### Build Setup
+## Table of contents
+
+- [Technologies](#technologies)
+- [Setup](#setup)
+- [Example](#example)
+- [Latest release](#latest-release)
+- [To do](#todo)
+- [Sources](#sources)
+
+## Technologies
+
+
+- [Vue](https://github.com/vuejs/vue), [Sass](https://github.com/sass/sass)
+- Libraries: [Vue Query](https://github.com/DamianOsipiuk/vue-query), [Vue Carousel](https://github.com/SSENSE/vue-carousel), [Vue Slider](https://github.com/NightCatSama/vue-slider-component), etc... (i'm lazy to write those out, you can just check `package.json`)
+
+## Setup
+
+To run this project, install it locally using npm (or yarn):
 
 ``` bash
 # install dependencies
@@ -20,6 +37,22 @@ npm run lint
 
 ```
 
----
 
-This project was generated with [electron-vue](https://github.com/SimulatedGREG/electron-vue)@[8d4ed60](https://github.com/SimulatedGREG/electron-vue/tree/8d4ed607d65300381a8f47d97923eb07832b1a9a) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).
+## Example
+
+Here is some screenshots to show how the app would looks like.
+
+![image](https://user-images.githubusercontent.com/68330291/131808125-29eaba02-0f26-4246-8a9c-e954a8ea16fe.png)
+
+## Latest release
+[0.1-alpha](https://github.com/hoangvu12/Siestify/releases/tag/0.1-alpha)
+
+## Todo
+
+- Save playlists (Localstorage)
+- Fix audio player bugs
+- Icon and app name
+- Add playlist carousels
+
+## Sources
+- Data, design is inspired by [Zing MP3](https://zingmp3.vn)
