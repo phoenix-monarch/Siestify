@@ -176,8 +176,10 @@
       <div class="player__info--progress">
         <slider
           @drag-end="onProgressChange"
+          @click="onProgressChange"
           :max="Math.round(duration)"
           :value="Math.round(currentTime)"
+          :interval="0.01"
         />
       </div>
 

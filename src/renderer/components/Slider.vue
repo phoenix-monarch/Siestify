@@ -1,11 +1,13 @@
 <template>
   <vue-slider
+    ref="slider"
     v-bind="options"
     :value="value"
     :max="max"
     :interval="interval"
     @change="onChange"
     @drag-end="onDragEnd"
+    @click.native="onClick"
   />
 </template>
 
@@ -61,6 +63,10 @@ export default {
     },
     onDragEnd() {
       this.$emit("drag-end", this.lastDragValue);
+    },
+
+    onClick() {
+      this.$emit("click", this.lastDragValue);
     },
   },
 };
