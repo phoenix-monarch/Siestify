@@ -32,5 +32,7 @@ module.exports = {
     "arrow-parens": ["off"],
     "no-console": ["warn"],
     "vue/no-multiple-template-root": ["off"],
+    "object-curly-newline": ["off"],
+    "no-underscore-dangle": ["off"],
   },
 };

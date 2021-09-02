@@ -54,13 +54,14 @@ export default {
       flex: 1 1 0%;
     }
 
+    transition: background-color 300ms;
+
     &:hover {
-      background-color: rgba($color: #ffffff, $alpha: 0.2);
+      background-color: rgba($color: #ffffff, $alpha: 0.1);
     }
 
     padding: 1rem;
     border-radius: 6px;
-    cursor: pointer;
 
     display: flex;
     justify-content: space-between;

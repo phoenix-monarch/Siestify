@@ -1,5 +1,12 @@
 <template>
-  <vue-slider v-bind="options" @change="onChange" />
+  <vue-slider
+    v-bind="options"
+    :value="value"
+    :max="max"
+    :interval="interval"
+    @change="onChange"
+    @drag-end="onDragEnd"
+  />
 </template>
 
 <script>
@@ -7,15 +14,31 @@ import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/default.css";
 
 export default {
-  props: ["width", "max"],
+  props: {
+    value: {
+      default: 0,
+      type: Number,
+    },
+    width: {
+      type: String,
+    },
+    max: {
+      default: 100,
+      type: Number,
+    },
+    interval: {
+      default: 1,
+      type: Number,
+    },
+  },
   components: {
     VueSlider,
   },
   data() {
     return {
-      value: 0,
+      lastDragValue: 0,
       options: {
-        max: this.max,
+        speed: 0,
         railStyle: {
           backgroundColor: "#333949",
           width: this.width,
@@ -26,28 +49,36 @@ export default {
         dotOptions: {
           tooltip: "none",
         },
-
         dotSize: 11,
+        min: 0,
       },
     };
   },
   methods: {
     onChange(num) {
+      this.lastDragValue = num;
       this.$emit("change", num);
+    },
+    onDragEnd() {
+      this.$emit("drag-end", this.lastDragValue);
     },
   },
 };
 </script>
 
 <style lang="scss">
-/deep/ .vue-slider {
+.vue-slider {
   cursor: pointer;
   &:hover .vue-slider-dot-handle {
     visibility: visible;
   }
 }
 
-/deep/ .vue-slider-dot-handle {
+.vue-slider-dot-handle {
   visibility: hidden;
+}
+
+.vue-slider-dot {
+  transition: none !important;
 }
 </style>

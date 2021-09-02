@@ -1,13 +1,15 @@
 <template>
   <div class="sidebar">
     <div class="sidebar__nav">
+      <img src="~@/assets/logo.png" alt="logo" class="sidebar__logo" />
+
       <main-nav />
       <!-- <second-nav /> -->
     </div>
 
-    <div class="sidebar__player">
+    <div class="sidebar__player" v-if="currentTrack">
       <img
-        src="https://photo-resize-zmp3.zadn.vn/w240_r1x1_jpeg/cover/2/e/0/6/2e0631a7eba6ecbd60540290646b0775.jpg"
+        v-lazy="currentTrack.thumbnailM"
         alt="player-image"
         class="sidebar__player--image"
       />
@@ -16,13 +18,15 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import MainNav from "./MainNav.vue";
 import SecondNav from "./SecondNav.vue";
 
 export default {
   name: "sidebar",
-  data() {
-    return {};
+  computed: {
+    ...mapGetters(["currentTrack"]),
   },
   components: {
     MainNav,
@@ -37,7 +41,7 @@ export default {
 .sidebar {
   position: relative;
   grid-column: span 2 / span 2;
-  padding: 5.5rem 1.5rem;
+  padding: 2rem 1.5rem;
   color: $text-grayish-color;
   font-weight: 500;
   display: flex;
@@ -45,12 +49,12 @@ export default {
   flex-direction: column;
   padding-bottom: 9rem;
 
-  &__nav > * + * {
-    margin-top: 1.5rem;
+  &__logo {
+    max-width: 80%;
   }
 
   &__player {
-    max-width: 8rem;
+    max-width: 90%;
     &--image {
       aspect-ratio: 1 / 1;
       width: 100%;

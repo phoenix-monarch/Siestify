@@ -10,9 +10,20 @@
 </template>
 
 <script>
+import { useQueryProvider, QueryClient } from "vue-query";
+
 import Sidebar from "./components/Sidebar/index.vue";
 import AppHeader from "./components/Header/index.vue";
 import Player from "./components/Player.vue";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+    },
+  },
+});
 
 export default {
   name: "siestify",
@@ -21,8 +32,8 @@ export default {
     Player,
     AppHeader,
   },
-  data() {
-    return {};
+  setup() {
+    useQueryProvider(queryClient);
   },
 };
 </script>
@@ -64,5 +75,7 @@ body {
   padding: 0;
   max-height: calc(100vh - 8.5rem);
   overflow-y: scroll;
+  position: relative;
+  z-index: 0;
 }
 </style>
