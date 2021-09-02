@@ -283,7 +283,7 @@ export default {
       // If repeat is on, repeat the song.
       if (this.isRepeat) {
         this.audioElement.currentTime = 0;
-        this.play();
+        this.audioElement.play();
 
         return;
       }
