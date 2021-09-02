@@ -260,25 +260,20 @@ export default {
         return;
       }
 
+      if (this.isRandom) {
+        const randomIndex = Math.floor(Math.random() * this.tracks.length);
+
+        this.setCurrentTrackIndex(randomIndex);
+
+        return;
+      }
+
       // Final song? Don't go to next song please.
       if (this.isLastSong) {
         return;
       }
 
-      // I hope you can understand what these things are
-      let index;
-
-      // Don't understand? Don't worry!
-      // If random is on, get random index from tracks.
-      // Else just increase the current index by one
-      if (this.isRandom) {
-        index = Math.floor(Math.random() * this.tracks.length);
-      } else {
-        index = this.currentTrackIndex + 1;
-      }
-
-      // Set the index to play the song we want!
-      this.setCurrentTrackIndex(index);
+      this.setCurrentTrackIndex(this.currentTrackIndex + 1);
     },
     prevSong() {
       // First song? Don't play the previous song.
