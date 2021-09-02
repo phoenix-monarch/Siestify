@@ -1,34 +1,54 @@
 <template>
   <div class="genres">
-    <div
-      class="genres__background"
-      :style="{
-        'background-image': `url(${data.cover})`,
-      }"
-    >
-      <div class="overlay"></div>
+    <div v-if="!isLoading">
+      <div
+        class="genres__background"
+        :style="{
+          'background-image': `url(${data.cover})`,
+        }"
+      >
+        <div class="overlay"></div>
+      </div>
+      <div class="genres__content">
+        <playlist-carousel
+          v-for="playlist in data.sections"
+          :key="playlist.title"
+          :title="playlist.title"
+          :items="playlist.items"
+          @click="handleClick"
+        />
+      </div>
     </div>
-    <div class="genres__content">
-      <playlist-carousel
-        v-for="playlist in data.sections"
-        :key="playlist.title"
-        :title="playlist.title"
-        :items="playlist.items"
-      />
+
+    <div v-else>
+      <spinner />
     </div>
   </div>
 </template>
 
 <script>
+import { reactive } from "@vue/composition-api";
+import { useQuery } from "vue-query";
 import PlaylistCarousel from "../../carousels/PlaylistCarousel.vue";
-import data from "../../data/dynamic-genres.json";
+import { GenresDetailsQuery } from "../../services/genres";
+import Spinner from "../../components/Spinner.vue";
 
 export default {
-  components: { PlaylistCarousel },
-  data() {
-    return {
-      data,
+  components: { PlaylistCarousel, Spinner },
+  setup(_, { root }) {
+    const { id } = root.$route.params;
+    const router = root.$router;
+
+    const { data, isLoading, isError } = useQuery(
+      reactive(["genres", { id }]),
+      () => GenresDetailsQuery(id)
+    );
+
+    const handleClick = (item) => {
+      router.push({ name: "album", params: { id: item.encodeId } });
     };
+
+    return { data, isLoading, isError, handleClick };
   },
 };
 </script>
