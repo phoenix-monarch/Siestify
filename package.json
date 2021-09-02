@@ -57,6 +57,7 @@
     "axios": "^0.21.1",
     "crypto": "^1.0.1",
     "dayjs": "^1.10.6",
+    "seamless-scroll-polyfill": "^1.2.4",
     "vue": "^2.5.16",
     "vue-carousel": "^0.18.0",
     "vue-electron": "^1.0.6",

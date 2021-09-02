@@ -6,7 +6,11 @@
       <span>Hành động</span>
     </template>
 
-    <row v-for="(song, index) in songs.slice(0, showItem)" :key="song.encodeId">
+    <row
+      v-for="(song, index) in songs.slice(0, showItem)"
+      :key="song.encodeId"
+      :class="{ active: isPlayingTrack(song) }"
+    >
       <cell class="song__cell">
         <song-card :song="song">
           <span
@@ -54,8 +58,9 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { ref } from "@vue/composition-api";
+import { elementScrollIntoView } from "seamless-scroll-polyfill";
 
 import { Table as CusTable, Row, Cell } from "./Table";
 import ButtonIcon from "./ButtonIcon.vue";
@@ -78,6 +83,9 @@ export default {
     SongCard,
     InfiniteScroll,
   },
+  computed: {
+    ...mapGetters(["currentTrack"]),
+  },
   setup() {
     const ITEM_PER_LOAD = 12;
 
@@ -91,6 +99,25 @@ export default {
     return { onLoadMore, showItem };
   },
   methods: {
+    scrollToPlayingTrack() {
+      if (!this.currentTrack) return;
+
+      const playingTrack = this.$el.querySelector(".table__row.active");
+
+      if (playingTrack) {
+        elementScrollIntoView(playingTrack, {
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    },
+
+    isPlayingTrack(track) {
+      if (!this.currentTrack) return false;
+
+      return track.encodeId === this.currentTrack.encodeId;
+    },
+
     parseTime,
     listenTrack(item) {
       this.unshiftTrack(item);
@@ -99,6 +126,14 @@ export default {
       this.play();
     },
     ...mapActions(["addTrack", "unshiftTrack", "setCurrentTrack", "play"]),
+  },
+  mounted() {
+    this.scrollToPlayingTrack();
+  },
+  watch: {
+    currentTrack() {
+      this.scrollToPlayingTrack();
+    },
   },
 };
 </script>
@@ -109,6 +144,12 @@ export default {
 .head__song,
 .song__cell {
   flex-grow: 2;
+}
+
+/deep/ .table__row {
+  &.active {
+    background-color: rgba($color: #ffffff, $alpha: 0.1);
+  }
 }
 
 /deep/ .song__ranking {
