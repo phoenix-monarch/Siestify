@@ -138,15 +138,17 @@
             </button-icon>
           </div>
 
-          <song-card
-            v-for="(song, index) in tracks"
-            @click="setCurrentTrackIndex(index)"
-            :song="song"
-            :class="{
-              active: currentTrack && currentTrack.encodeId === song.encodeId,
-            }"
-            :key="index"
-          />
+          <div class="drawer__content">
+            <song-card
+              v-for="(song, index) in tracks"
+              @click="setCurrentTrackIndex(index)"
+              :song="song"
+              :class="{
+                active: currentTrack && currentTrack.encodeId === song.encodeId,
+              }"
+              :key="index"
+            />
+          </div>
         </drawer>
       </div>
     </div>
@@ -307,6 +309,15 @@ export default {
         this.isFirstSong = false;
       }
     },
+    scrollToPlayingTrack() {
+      const drawerContent = document.querySelector(".drawer__content");
+
+      const playingTrack = drawerContent.querySelector(".active");
+
+      if (playingTrack) {
+        playingTrack.scrollIntoView({ behavior: "smooth" });
+      }
+    },
   },
   computed: {
     ...mapGetters(["isPlaying", "tracks", "currentTrack", "currentTrackIndex"]),
@@ -359,6 +370,7 @@ export default {
     currentTrack(track) {
       this.pause();
       this.isFirstOrLastSong();
+      this.scrollToPlayingTrack();
 
       StreamingQuery(track.encodeId).then((streaming) => {
         this.audioElement.src = streaming["128"];
