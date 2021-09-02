@@ -14,8 +14,9 @@ Siestify is a simple music player built with Electron and Vue.
 ## Technologies
 
 
-- [Vue](https://github.com/vuejs/vue), [Sass](https://github.com/sass/sass)
+- [Vue](https://github.com/vuejs/vue), [Sass](https://github.com/sass/sass), [Electron](https://github.com/electron/electron)
 - Libraries: [Vue Query](https://github.com/DamianOsipiuk/vue-query), [Vue Carousel](https://github.com/SSENSE/vue-carousel), [Vue Slider](https://github.com/NightCatSama/vue-slider-component), etc... (i'm lazy to write those out, you can just check `package.json`)
+- Boilerplate: [Electron Vue](https://github.com/SimulatedGREG/electron-vue)
 
 ## Setup
 
